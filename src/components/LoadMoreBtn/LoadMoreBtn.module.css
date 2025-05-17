@@ -1,0 +1,16 @@
+.load {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 25px;
+  font-size: 16px;
+  background-color: #2a2fa4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load:hover {
+  background-color: #1e2299;
+}

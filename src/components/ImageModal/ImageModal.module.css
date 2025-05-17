@@ -1,0 +1,11 @@
+.img {
+  height: 95vh;
+  border-radius: 4px;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2px;
+}

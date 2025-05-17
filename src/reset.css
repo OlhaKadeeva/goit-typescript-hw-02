@@ -1,0 +1,93 @@
+/* Box sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margins and paddings */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+dl,
+dd,
+ol,
+ul,
+figure,
+hr,
+fieldset,
+legend,
+input,
+button,
+textarea,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set default font settings */
+body {
+  line-height: 1.5;
+  font-family: sans-serif;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove default link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Set media elements to block and full width */
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reset buttons */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* Remove quotes from blockquotes */
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

@@ -1,0 +1,24 @@
+.header {
+  background-color: #2a2fa4;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* z-index: 1; */
+}
+
+.header input {
+  min-width: 300px;
+  margin: 0 auto;
+  padding: 5px 15px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  line-height: 2;
+  font-weight: 500;
+}
+.header button {
+  margin-left: 5px;
+}
