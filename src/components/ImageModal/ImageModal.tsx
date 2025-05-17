@@ -1,9 +1,11 @@
+import React from "react";
 import ReactModal from "react-modal";
 import css from "./ImageModal.module.css";
 
-ReactModal.defaultStyles.overlay.backgroundColor = "rgba(0, 0, 0, 0.75)";
-
 const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
+  },
   content: {
     top: "50%",
     left: "50%",
@@ -18,16 +20,24 @@ const customStyles = {
   },
 };
 
-const ImageModal = ({ isOpen, image, onClose }) => {
-  if (!image) return null;
+interface ImageType {
+  urls: {
+    regular: string;
+  };
+  alt_description: string;
+}
+
+interface ImageModalProps {
+  isOpen: boolean;
+  image: ImageType | null;
+  onClose: () => void;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({ isOpen, image, onClose }) => {
+  if (!image || !isOpen) return null;
 
   return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      style={customStyles}
-      ariaHideApp={false}
-    >
+    <ReactModal isOpen={isOpen} onRequestClose={onClose} style={customStyles}>
       <button className={css.close} onClick={onClose}>
         ✖️
       </button>

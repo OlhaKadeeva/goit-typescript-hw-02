@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+import { UnsplashImage, UnsplashApiResponse } from "./App.types";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
@@ -11,14 +12,16 @@ import ImageModal from "./components/ImageModal/ImageModal";
 const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
 const URL = import.meta.env.VITE_URL_UNSPLASH;
 
-const App = () => {
-  const [images, setImages] = useState([]);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [totalPages, setTotalPages] = useState(0);
+const App: React.FC = () => {
+  const [images, setImages] = useState<UnsplashImage[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<UnsplashImage | null>(
+    null
+  );
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     if (!query) return;
@@ -26,7 +29,7 @@ const App = () => {
     const fetchImages = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(URL, {
+        const response = await axios.get<UnsplashApiResponse>(URL, {
           params: {
             query,
             page,
@@ -37,14 +40,16 @@ const App = () => {
           },
         });
 
+        const data = response.data;
+
         if (page === 1) {
-          setImages(response.data.results);
+          setImages(data.results);
         } else {
-          setImages((prev) => [...prev, ...response.data.results]);
+          setImages((prev) => [...prev, ...data.results]);
         }
-        setTotalPages(response.data.total_pages);
+        setTotalPages(data.total_pages);
         setError(null);
-      } catch (error) {
+      } catch (error: any) {
         setError("Failed to fetch images");
       } finally {
         setIsLoading(false);
@@ -54,7 +59,7 @@ const App = () => {
     fetchImages();
   }, [query, page]);
 
-  const handleSearch = (newQuery) => {
+  const handleSearch = (newQuery: string) => {
     if (newQuery === query) return;
     setQuery(newQuery);
     setPage(1);
@@ -65,7 +70,7 @@ const App = () => {
     setPage((prev) => prev + 1);
   };
 
-  const openModal = (image) => setSelectedImage(image);
+  const openModal = (image: UnsplashImage) => setSelectedImage(image);
   const closeModal = () => setSelectedImage(null);
 
   return (
@@ -78,7 +83,11 @@ const App = () => {
         <LoadMoreBtn onClick={loadMore} />
       )}
       {selectedImage && (
-        <ImageModal isOpen={true} image={selectedImage} onClose={closeModal} />
+        <ImageModal
+          isOpen={Boolean(selectedImage)}
+          image={selectedImage}
+          onClose={closeModal}
+        />
       )}
     </>
   );
